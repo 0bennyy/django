@@ -42,3 +42,4 @@ def addregister(request):
         data=client.objects.all()
         context={'data':data}
         return render(request,'register.html',context)
+

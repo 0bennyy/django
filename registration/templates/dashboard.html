@@ -15,8 +15,7 @@
         <h2 class="mb-4">Car Registration Dashboard</h2>
         <div class="row">
             <div class="col-md-6">
-                <form id="registrationForm" method="POST"
-                action="addregister">
+                <form id="registrationForm" method="POST" action="addregister">
                     <div class="form-group">
                         <label for="firstName">First Name</label>
                         <input type="text" class="form-control" id="firstName" placeholder="Enter first name">
@@ -57,7 +56,7 @@
                         <!-- Add more options for each registered user -->
                     </select>
                 </div>
-                <button type="button" class="btn btn-primary">Edit User</button>
+                <button type="button" class="btn btn-primary" onclick="editSelectedUser()">Edit User</button>
                 <hr>
                 <h4>Registered Users</h4>
                 <table class="table">
@@ -67,6 +66,7 @@
                             <th>Last Name</th>
                             <th>Email</th>
                             <th>Car Type</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="registeredUsersTable">
@@ -94,7 +94,7 @@
                 var carType = $("#carType").val();
 
                 // Add new row to the table
-                var newRow = "<tr><td>" + firstName + "</td><td>" + lastName + "</td><td>" + email + "</td><td>" + carType + "</td></tr>";
+                var newRow = "<tr><td>" + firstName + "</td><td>" + lastName + "</td><td>" + email + "</td><td>" + carType + "</td><td><button class='btn btn-sm btn-primary' onclick='editUser(this)'>Edit</button> <button class='btn btn-sm btn-danger' onclick='deleteUser(this)'>Delete</button></td></tr>";
                 $("#registeredUsersTable").append(newRow);
 
                 // Reset form fields
@@ -104,6 +104,38 @@
                 $("#carType").val("Select car type");
             });
         });
+
+        function editSelectedUser() {
+            var selectedUser = $("#registeredUsers").val();
+            // Assuming the user data is stored in an array of objects
+            var users = [
+                { firstName: "John", lastName: "Doe", email: "john@example.com", carType: "Sedan" },
+                { firstName: "Jane", lastName: "Smith", email: "jane@example.com", carType: "SUV" }
+                // Add more users as needed
+            ];
+
+            var user = users.find(function (u) {
+                return u.firstName + " " + u.lastName === selectedUser;
+            });
+
+            // Populate form fields with user data
+            $("#firstName").val(user.firstName);
+            $("#lastName").val(user.lastName);
+            $("#email").val(user.email);
+            $("#carType").val(user.carType);
+        }
+
+        function editUser(button) {
+            // Assuming you have implemented editing logic here
+            // You can retrieve the row data and allow the user to edit it
+            // For simplicity, let's just alert the user for now
+            alert("Edit functionality will be implemented here");
+        }
+
+        function deleteUser(button) {
+            var row = $(button).closest("tr");
+            row.remove();
+        }
     </script>
 </body>
 </html>
